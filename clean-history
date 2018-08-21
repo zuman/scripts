@@ -1,0 +1,15 @@
+#!/bin/python
+from __future__ import print_function
+from collections import OrderedDict
+path="/home/szhusain/"
+file=".bash_history"
+fin=open(path+file, "r")
+uniq=OrderedDict()
+for l in fin:
+	line=l.strip()
+	if line in uniq:	del(uniq[line])
+	uniq[line]=True
+fout=open(path+file, "w")
+for line in uniq:	print(line, file=fout)
+fout.close()
+print("History cleaned!")
