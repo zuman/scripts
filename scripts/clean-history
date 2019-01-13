@@ -1,7 +1,9 @@
 #!/usr/bin/python
 from __future__ import print_function
 from collections import OrderedDict
-path="/home/szhusain/"
+import os
+user=os.getlogin()
+path="/home/"+user+"/"
 file=".bash_history"
 fin=open(path+file, "r")
 uniq=OrderedDict()
