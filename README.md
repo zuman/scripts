@@ -1,6 +1,6 @@
 # scripts
 
-A list of useful scipts to make your terminal life easy.
+A list of useful scripts to make your terminal life easy.
 
 Tried and tested in Ubuntu and Oracle Linux.
 

@@ -1,8 +1,10 @@
 #!/usr/bin/python
 from __future__ import print_function
 from collections import OrderedDict
+import pwd
 import os
-user=os.getlogin()
+getlogin = lambda: pwd.getpwuid(os.getuid())[0]
+user=getlogin()
 path="/home/"+user+"/"
 file=".bash_history"
 fin=open(path+file, "r")
