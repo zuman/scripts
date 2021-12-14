@@ -4,8 +4,8 @@ import pwd
 import os
 getlogin = lambda: pwd.getpwuid(os.getuid())[0]
 user=getlogin()
-path="/home/"+user+"/"
-file=".bash_history"
+path="/Users/"+user+"/"
+file=".zsh_history"
 fin=open(path+file, "r")
 uniq=OrderedDict()
 for l in fin:
