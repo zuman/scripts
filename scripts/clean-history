@@ -1,18 +1,19 @@
 #!/usr/bin/python3
-from collections import OrderedDict
-import pwd
 import os
-getlogin = lambda: pwd.getpwuid(os.getuid())[0]
-user=getlogin()
-path="/Users/"+user+"/"
-file=".zsh_history"
-fin=open(path+file, "r")
-uniq=OrderedDict()
+from collections import OrderedDict
+
+user = os.path.expanduser('~')
+shell = os.environ['SHELL'].split('/')[-1]
+file = user+"/."+shell+"_history"
+fin = open(file, "r")
+uniq = OrderedDict()
 for l in fin:
-	line=l.strip()
-	if line in uniq:	del(uniq[line])
-	uniq[line]=True
-fout=open(path+file, "w")
-for line in uniq:	print(line, file=fout)
+    line = l.strip()
+    if line in uniq:
+        del(uniq[line])
+    uniq[line] = True
+fout = open(file, "w")
+for line in uniq:
+    print(line, file=fout)
 fout.close()
 print("History cleaned!")
