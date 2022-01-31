@@ -1,3 +1,3 @@
 apt update && apt upgrade -y
-user=${user:-zap}
-echo "hi $user"
+user="${1:-zap}"
+echo "hi ${user}"
