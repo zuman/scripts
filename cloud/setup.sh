@@ -13,6 +13,7 @@ echo "hi ${user}"
 # add new user and copy ssh key
 # useradd -m $user
 # echo "$user:$password" | chpasswd
+echo "Adding new user $user"
 mkdir /home/$user/.ssh
 cp /home/$defaultuser/.ssh/authorized_keys /home/$user/.ssh/
 
