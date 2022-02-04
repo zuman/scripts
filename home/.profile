@@ -32,18 +32,19 @@ force_color_prompt=yes
 source log.sh
 
 #Add aliases here
-alias python=python3
-alias pip=pip3
-alias sag="sudo apt upgrade"
-alias sad="sudo apt update"
-alias vncres='vncserver -kill :* | vncserver -geometry 1880x940'
 alias enva='source venv/bin/activate'
 alias envd='deactivate'
-alias sss="sudo supervisorctl status"
-alias ssr="sudo supervisorctl restart"
-alias gtree="git log --graph --decorate --pretty=oneline"
-alias fr5="export FLASK_DEBUG=1; flask run --host 0.0.0.0"
 alias fdr="export FLASK_DEBUG=0"
+alias fr5="export FLASK_DEBUG=1; flask run --host 0.0.0.0"
+alias gaa="git add --all"
+alias gtree="git log --graph --decorate --pretty=oneline"
+alias pip=pip3
+alias python=python3
+alias sad="sudo apt update"
+alias sag="sudo apt upgrade"
+alias ssr="sudo supervisorctl restart"
+alias sss="sudo supervisorctl status"
+alias vncres='vncserver -kill :* | vncserver -geometry 1880x940'
 
 #Add environment variables here.
 export FLASK_APP=main.py
