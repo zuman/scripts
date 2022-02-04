@@ -3,7 +3,7 @@ apt update && apt upgrade -y
 user="${1:-zap}"
 password="${2:-password}"
 defaultuser="${3:-ubuntu}"
-echo "hi ${user}"
+echo "hello ${user}"
 # Enable Universal Firewall
 # ufw enable
 # ufw allow ssh
