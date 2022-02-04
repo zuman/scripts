@@ -12,4 +12,4 @@ Run home/setup.sh to setup home directory.
 
 ## 2. Cloud VM initialization scripts
 
-~~Run cloud/setup.sh to setup cloud VM.~~
+> wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- zap password
