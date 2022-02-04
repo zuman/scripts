@@ -12,4 +12,12 @@ Run home/setup.sh to setup home directory.
 
 ## 2. Cloud VM initialization scripts
 
-> wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- zap password
+Run the following command to initialize your cloud VM. The parameters are:
+
+<ol>
+<li> username : The username to be create for the VM. </li>
+<li> password : The password to be used for the username. </li>
+<li> default_user : The default user to remove from the VM. </li>
+</ol>
+
+> wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- {username} {password} {default_user}
