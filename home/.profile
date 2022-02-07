@@ -34,16 +34,25 @@ source log.sh
 #Add aliases here
 alias enva='source venv/bin/activate'
 alias envd='deactivate'
+alias f5='cd ..;cd -'
 alias fdr="export FLASK_DEBUG=0"
 alias fr5="export FLASK_DEBUG=1; flask run --host 0.0.0.0"
-alias gaa="git add --all"
-alias gtree="git log --graph --decorate --pretty=oneline"
+alias gs='git status'
+alias gaa='git add --all'
+alias gf5='git remote update origin --prune'
+alias gtree='git log --graph --decorate --pretty=oneline'
+alias ll='ls -alth'
 alias pip=pip3
 alias python=python3
 alias sad="sudo apt update"
 alias sag="sudo apt upgrade"
 alias ssr="sudo supervisorctl restart"
 alias sss="sudo supervisorctl status"
+alias tf=terraform
+alias tfi='terraform init'
+alias tfp='terraform plan'
+alias tfa='terraform apply'
+alias tfd='terraform destroy'
 alias vncres='vncserver -kill :* | vncserver -geometry 1880x940'
 
 #Add environment variables here.
