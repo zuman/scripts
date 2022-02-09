@@ -39,7 +39,7 @@ alias fdr="export FLASK_DEBUG=0"
 alias fr5="export FLASK_DEBUG=1; flask run --host 0.0.0.0"
 alias gs='git status'
 alias gaa='git add --all'
-alias gf5='git remote update origin --prune'
+alias gf5='git pull; git remote update origin --prune'
 alias gtree='git log --graph --decorate --pretty=oneline'
 alias ll='ls -alth'
 alias pip=pip3
