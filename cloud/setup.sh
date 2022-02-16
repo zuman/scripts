@@ -20,6 +20,6 @@ cp /home/$defaultuser/.ssh/authorized_keys /home/$user/.ssh/
 chown -R $user:$user /home/$user
 echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-echo "Remove $defaultuser from sudoers"
-sed -i "/$defaultuser ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers
-userdel -r $defaultuser
+# echo "Remove $defaultuser from sudoers"
+# sed -i "/$defaultuser ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers
+# userdel -r $defaultuser
