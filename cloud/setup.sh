@@ -5,9 +5,9 @@ defaultuser="${3:-ubuntu}"
 echo "Hello ${user}"
 
 echo "Enable Universal Firewall"
-ufw enable
+echo "y" | sudo ufw enable
 ufw allow ssh
-systemctl restart ufw --force
+systemctl restart ufw
 
 echo "Set up $user"
 useradd -m $user
