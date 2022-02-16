@@ -7,7 +7,7 @@ echo "Hello ${user}"
 echo "Enable Universal Firewall"
 ufw enable
 ufw allow ssh
-systemctl restart ufw
+systemctl restart ufw --force
 
 echo "Set up $user"
 useradd -m $user
