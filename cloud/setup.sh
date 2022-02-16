@@ -18,8 +18,10 @@ cp /home/$defaultuser/.bashrc /home/$user/.bashrc
 cp /home/$defaultuser/.profile /home/$user/.profile
 cp /home/$defaultuser/.ssh/authorized_keys /home/$user/.ssh/
 chown -R $user:$user /home/$user
+usermod -aG sudo $user
 echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# echo "Remove $defaultuser from sudoers"
-# sed -i "/$defaultuser ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers
-# userdel -r $defaultuser
+# echo "Remove $defaultuser from sudo group"
+sed -i "/$defaultuser/d" /etc/sudoers.d/*
+sed -i "/$defaultuser/d" /etc/sudoers
+deluser $defaultuser sudo
