@@ -28,7 +28,6 @@ fi
 
 
 export PATH=~/scripts:$PATH
-force_color_prompt=yes
 source log.sh
 
 #Add aliases here
