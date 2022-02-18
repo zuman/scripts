@@ -21,7 +21,7 @@ chown -R $user:$user /home/$user
 usermod -aG sudo $user
 echo "$user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# echo "Remove $defaultuser from sudo group"
+echo "Remove $defaultuser from sudo group"
 sed -i "/$defaultuser/d" /etc/sudoers.d/*
 sed -i "/$defaultuser/d" /etc/sudoers
 deluser $defaultuser sudo
