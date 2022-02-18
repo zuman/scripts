@@ -12,7 +12,7 @@ Run home/setup.sh to setup home directory.
 
 ## 2. Cloud VM initialization scripts
 
-Run the following command to initialize your cloud VM. The parameters are:
+Run the following command to initialize your cloud VM based on Ubuntu distro. The parameters are:
 
 <ol>
 <li> username : The username to be create for the VM. </li>

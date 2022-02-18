@@ -25,3 +25,7 @@ echo "Remove $defaultuser from sudo group"
 sed -i "/$defaultuser/d" /etc/sudoers.d/*
 sed -i "/$defaultuser/d" /etc/sudoers
 deluser $defaultuser sudo
+
+echo "Setup Docker"
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh ./get-docker.sh
