@@ -1,3 +1,8 @@
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 apt update && apt upgrade -y
 user="${1:-zap}"
 password="${2:-password}"
@@ -5,6 +10,7 @@ defaultuser="${3:-ubuntu}"
 echo "Hello ${user}"
 
 echo "Enable Universal Firewall"
+sed -i 's/^\[Unit\]/\[Unit\]\nAfter=netfilter-persistent.service/' /lib/systemd/system/ufw.service
 echo "y" | sudo ufw enable
 ufw allow ssh
 systemctl restart ufw
@@ -25,10 +31,6 @@ echo "Remove $defaultuser from sudo group"
 sed -i "/$defaultuser/d" /etc/sudoers.d/*
 sed -i "/$defaultuser/d" /etc/sudoers
 deluser $defaultuser sudo
-
-echo "Setup Docker"
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh ./get-docker.sh
 
 echo "Setup Scripts"
 su -c "mkdir /home/$user/workspace" $user
