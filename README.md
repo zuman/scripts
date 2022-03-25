@@ -28,23 +28,28 @@ Run the following command to initialize your cloud VM based on Ubuntu distro. Th
 
 ## 3.  VPN Initialization script
 
-### Run the following commands to initialize VPN.
+### Run the following commands to initialize VPN:
 > ./home/packages.sh
 
 > cd vpn
 
 > ./setup.sh
 
-### Confirm that wireguard is running.
+### Confirm that wireguard is running:
+> cd /opt/wireguard-server
+
 > docker-compose ps
+
+### Reboot if getting an error:
+> sudo reboot
 
 ### Add the following ingress rules to your firewall:
 ![Ingress rule](images/ingress.jpg)
 
-### Install Wireguard client on your device.
+### Install Wireguard client on your device:
 https://www.wireguard.com/install
 
-### Show QR code for the VPN peer
+### Show QR code for the VPN peer:
 >docker exec -it wireguard /app/show-peer 1
 
 <br><br>
