@@ -26,6 +26,11 @@ Run the following command to initialize your cloud VM based on Ubuntu distro. Th
 
 Run the following commands to initialize VPN.
 
->user=`whoami`
->cd vpn
->./setup.sh
+> ./home/packages.sh
+
+> cd vpn
+
+> ./setup.sh
+
+Add the following ingress rules to your firewall:
+![Ingress rule](images/ingress.jpg)
