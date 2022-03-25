@@ -35,13 +35,12 @@ Run the following command to initialize your cloud VM based on Ubuntu distro. Th
 
 > ./setup.sh
 
+> sudo reboot
+
 ### Confirm that wireguard is running:
 > cd /opt/wireguard-server
 
 > docker-compose ps
-
-### Reboot if getting an error:
-> sudo reboot
 
 ### Add the following ingress rules to your firewall:
 ![Ingress rule](images/ingress.jpg)
