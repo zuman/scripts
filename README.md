@@ -21,3 +21,11 @@ Run the following command to initialize your cloud VM based on Ubuntu distro. Th
 </ol>
 
 > wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- {username} {password} {default_user}
+
+## 3.  VPN Initialization script
+
+Run the following commands to initialize VPN.
+
+>user=`whoami`
+>cd vpn
+>./setup.sh
