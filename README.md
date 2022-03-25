@@ -10,6 +10,8 @@ If you are facing any problems, you can reach out to me on syed.zuman.007@gmail.
 
 Run home/setup.sh to setup home directory.
 
+<br><br>
+
 ## 2. Cloud VM initialization scripts
 
 Run the following command to initialize your cloud VM based on Ubuntu distro. The parameters are:
@@ -22,15 +24,27 @@ Run the following command to initialize your cloud VM based on Ubuntu distro. Th
 
 > wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- {username} {password} {default_user}
 
+<br><br>
+
 ## 3.  VPN Initialization script
 
-Run the following commands to initialize VPN.
-
+### Run the following commands to initialize VPN.
 > ./home/packages.sh
 
 > cd vpn
 
 > ./setup.sh
 
-Add the following ingress rules to your firewall:
+### Confirm that wireguard is running.
+> docker-compose ps
+
+### Add the following ingress rules to your firewall:
 ![Ingress rule](images/ingress.jpg)
+
+### Install Wireguard client on your device.
+https://www.wireguard.com/install
+
+### Show QR code for the VPN peer
+>docker exec -it wireguard /app/show-peer 1
+
+<br><br>
