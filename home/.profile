@@ -31,6 +31,8 @@ export PATH=~/scripts:$PATH
 source log.sh
 
 #Add aliases here
+alias df5='echo "y" | docker image prune; echo "y" | docker volume prune; echo "y" | docker network prune;'
+alias dr-reset='docker compose down; docker compose build; docker compose up -d'
 alias enva='source venv/bin/activate'
 alias envd='deactivate'
 alias f5='cd ..;cd -'
