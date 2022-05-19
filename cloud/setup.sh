@@ -9,12 +9,6 @@ password="${2:-password}"
 defaultuser="${3:-ubuntu}"
 echo "Hello ${user}"
 
-# echo "Enable Universal Firewall"
-# sed -i 's/^\[Unit\]/\[Unit\]\nAfter=netfilter-persistent.service/' /lib/systemd/system/ufw.service
-# echo "y" | sudo ufw enable
-# ufw allow ssh
-# systemctl restart ufw
-
 echo "Set up $user"
 useradd -m $user
 chsh -s /bin/bash $user
