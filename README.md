@@ -8,7 +8,11 @@ If you are facing any problems, you can reach out to me on syed.zuman.007@gmail.
 
 ## 1.  Home directory customization
 
-### Run home/setup.sh to setup home directory.
+### Commands to setup home directory.
+```
+./home/setup.sh
+source ~/.profile
+```
 
 <br><br>
 
