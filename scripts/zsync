@@ -1,7 +1,7 @@
 if [ "$1" = "push" ]; then
-  rsync -zaPh --update --delete-excluded --exclude-from=$HOME'/scripts/.zsyncIgnore' $HOME/zsync/$3/ $2:~/zsync/$3
+  rsync -zaPh --update --delete-excluded --exclude-from=$HOME'/scripts/.zsyncignore' $HOME/zsync/$3/ $2:~/zsync/$3
 elif [ "$1" = "pull" ]; then
-  rsync -zaPh --update --delete-excluded --exclude-from=$HOME'/scripts/.zsyncIgnore' $2:~/zsync/$3/ $HOME/zsync/$3
+  rsync -zaPh --update --delete-excluded --exclude-from=$HOME'/scripts/.zsyncignore' $2:~/zsync/$3/ $HOME/zsync/$3
 else
   echo "Usage: zsync [pull|push] [hostname in ~/.ssh/config] [directory in ~/zsync/]"
 fi
