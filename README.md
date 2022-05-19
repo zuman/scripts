@@ -28,7 +28,7 @@ If you are facing any problems, you can reach out to me on syed.zuman.007@gmail.
 
 ### Usage:
 ```
-zsync.sh [pull|push] syncserver syncdir
+zsync [pull|push] syncserver syncdir
 ```
 
 <br><br>
