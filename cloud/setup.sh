@@ -30,5 +30,5 @@ echo "Setup Scripts"
 su -c "mkdir /home/$user/workspace" $user
 cd /home/$user/workspace
 su -c 'git clone https://github.com/zuman/scripts.git' $user
-cd scripts/home
-su -c './setup.sh' $user
+cd scripts
+su -c './home/setup.sh' $user

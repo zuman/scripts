@@ -6,7 +6,25 @@ Tried and tested in Ubuntu & MacOS.
 
 If you are facing any problems, you can reach out to me on syed.zuman.007@gmail.com
 
-## 1.  Home directory customization
+<br><br>
+
+## 1. Cloud VM initialization scripts
+
+Run the following command to initialize your cloud VM based on Ubuntu distro. The parameters are:
+
+<ol>
+<li> username : The username to be create for the VM. </li>
+<li> password : The password to be used for the username. </li>
+<li> default_user : The default user to remove from the VM. </li>
+</ol>
+
+```
+wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- {username} {password} {default_user}
+```
+
+<br><br>
+
+## 2.  Home directory customization
 
 ### Commands to setup home directory.
 ```
@@ -16,7 +34,7 @@ source ~/.profile
 
 <br><br>
 
-## 2. zsync to sync files between local and server
+## 3. zsync to sync files between local and server
 
 ### Prerequisites:
     1. Complete section above : 1. Home directory customization
@@ -33,22 +51,6 @@ source ~/.profile
 ### Usage:
 ```
 zsync [pull|push] syncserver syncdir
-```
-
-<br><br>
-
-## 2. Cloud VM initialization scripts
-
-Run the following command to initialize your cloud VM based on Ubuntu distro. The parameters are:
-
-<ol>
-<li> username : The username to be create for the VM. </li>
-<li> password : The password to be used for the username. </li>
-<li> default_user : The default user to remove from the VM. </li>
-</ol>
-
-```
-wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- {username} {password} {default_user}
 ```
 
 <br><br>
