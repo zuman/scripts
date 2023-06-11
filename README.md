@@ -45,7 +45,7 @@ source ~/.profile
             Port 22
             IdentityFile ~/.ssh/id_rsa
     
-    3. Make sure the directory ~/.zsync/syncdir exists and is writable at server and in local machine.
+    3. Make sure the directory ~/zsync/syncdir exists and is writable at server and in local machine.
 
 
 ### Usage:
@@ -83,3 +83,15 @@ https://www.wireguard.com/install
 >docker exec -it wireguard /app/show-peer 1
 
 <br><br>
+
+## 3.  Docker based Ubuntu VM
+
+1. Run the below commands. (make sure to replace your username and password accordingly)
+
+>cd vm
+ 
+>docker build . -t vm --build-arg username=myuser --build-arg password=mypassword
+
+2. cd into the directory where you want the home directory of the user.
+2. Run the container with command
+>docker run -d -v .:/home --network host --name my-vm vm
