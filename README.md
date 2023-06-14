@@ -8,23 +8,7 @@ If you are facing any problems, you can reach out to me on syed.zuman.007@gmail.
 
 <br><br>
 
-## 1. Cloud VM initialization scripts
-
-Run the following command to initialize your cloud VM based on Ubuntu distro. The parameters are:
-
-<ol>
-<li> username : The username to be create for the VM. </li>
-<li> password : The password to be used for the username. </li>
-<li> default_user : The default user to remove from the VM. </li>
-</ol>
-
-```
-wget -O - https://raw.githubusercontent.com/zuman/scripts/master/cloud/setup.sh | sudo bash -s -- {username} {password} {default_user}
-```
-
-<br><br>
-
-## 2.  Home directory customization
+## 1.  Home directory customization
 
 ### Commands to setup home directory.
 ```
@@ -34,7 +18,7 @@ source ~/.profile
 
 <br><br>
 
-## 3. zsync to sync files between local and server
+## 2. zsync to sync files between local and server
 
 ### Prerequisites:
     1. Complete section above : 1. Home directory customization
@@ -84,7 +68,7 @@ https://www.wireguard.com/install
 
 <br><br>
 
-## 3.  Docker based Ubuntu VM
+## 4.  Docker based Ubuntu VM
 
 1. Run the below commands. (make sure to replace your username and password accordingly)
 
@@ -95,3 +79,24 @@ https://www.wireguard.com/install
 2. cd into the directory where you want the home directory of the user.
 2. Run the container with command
 >docker run -d -v .:/home --network host --name my-vm vm
+
+<br><br>
+
+## 5.  Private code server
+
+1. Copy the directory gogs and cd the terminal into it.
+
+2. Export a postgres password
+>export POSTGRES_PASSWORD=...
+
+3. Run the container with command
+>docker compose up -d
+
+4. Open localhost:10880 and configure your server.
+>host=gogs-db-1
+
+>username=posgres
+
+>password=[Whatever you set in the previous step]
+
+>database=postgres
