@@ -13,8 +13,7 @@ If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 - [2. zsync to sync files between local and server](#2-zsync-to-sync-files-between-local-and-server)
 - [3. VPN Initialization script](#3-vpn-initialization-script)
 - [4. Docker based Ubuntu VM](#4-docker-based-ubuntu-vm)
-- [5. Private code server](#5-private-code-server)
-- [6. Nextcloud initialization command with reverse-proxy](#6-nextcloud-initialization-command-with-reverse-proxy)
+- [5. Nextcloud initialization command with reverse-proxy](#5-nextcloud-initialization-command-with-reverse-proxy)
 
 
 <br><br>
@@ -93,24 +92,5 @@ https://www.wireguard.com/install
 
 <br><br>
 
-## 5. Private code server
-
-1. Copy the directory gogs and cd the terminal into it.
-
-2. Export a postgres password
->export POSTGRES_PASSWORD=...
-
-3. Run the container with command
->docker compose up -d
-
-4. Open localhost:10880 and configure your server.
->host=gogs-db-1
-
->username=posgres
-
->password=[Whatever you set in the previous step]
-
->database=postgres
-
-## 6. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
+## 5. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
 Run the command: `./containers/nextcloud.sh`
