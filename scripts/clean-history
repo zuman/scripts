@@ -2,18 +2,31 @@
 import os
 from collections import OrderedDict
 
-user = os.path.expanduser('~')
-shell = os.environ['SHELL'].split('/')[-1]
-file = user+"/."+shell+"_history"
-fin = open(file, "r")
-uniq = OrderedDict()
-for l in fin:
-    line = l.strip()
-    if line in uniq:
-        del(uniq[line])
-    uniq[line] = True
-fout = open(file, "w")
-for line in uniq:
-    print(line, file=fout)
-fout.close()
-print("History cleaned!")
+def check_exclude(line):
+    # Exclude the lines from history which has the following strings in it
+    exclude = ["AWS_SECRET_ACCESS_KEY"]
+    for exc in exclude:
+        if exc in line:
+            return True
+    return False
+
+def main():
+    user = os.path.expanduser('~')
+    shell = os.environ['SHELL'].split('/')[-1]
+    file = user+"/."+shell+"_history"
+    fin = open(file, "r")
+    uniq = OrderedDict()
+    for l in fin:
+        line = l.strip()
+        if check_exclude(line):
+            continue
+        if line in uniq:
+            del(uniq[line])
+        uniq[line] = True
+    fout = open(file, "w")
+    for line in uniq:
+        print(line, file=fout)
+    fout.close()
+    print("History cleaned!")
+
+if __name__ == "__main__": main()
