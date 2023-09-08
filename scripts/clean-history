@@ -14,19 +14,22 @@ def main():
     user = os.path.expanduser('~')
     shell = os.environ['SHELL'].split('/')[-1]
     file = user+"/."+shell+"_history"
-    fin = open(file, "r")
-    uniq = OrderedDict()
-    for l in fin:
-        line = l.strip()
-        if check_exclude(line):
-            continue
-        if line in uniq:
-            del(uniq[line])
-        uniq[line] = True
-    fout = open(file, "w")
-    for line in uniq:
-        print(line, file=fout)
-    fout.close()
-    print("History cleaned!")
+    try:
+        with open(file, "r", errors="ignore") as fin:
+            uniq = OrderedDict()
+            for l in fin:
+                line = l.strip()
+                if check_exclude(line):
+                    continue
+                if line in uniq:
+                    del(uniq[line])
+                uniq[line] = True
+            fout = open(file, "w")
+            for line in uniq:
+                print(line, file=fout)
+            fout.close()
+        print("History cleaned!")
+    except Exception as e:
+        print(f"Error reading file: {e}")
 
 if __name__ == "__main__": main()
