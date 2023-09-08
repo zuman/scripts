@@ -25,6 +25,7 @@ def main():
                     del(uniq[line])
                 uniq[line] = True
             fout = open(file, "w")
+            uniq.popitem(last=False)
             for line in uniq:
                 print(line, file=fout)
             fout.close()
