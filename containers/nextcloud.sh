@@ -10,3 +10,7 @@ docker run \
 --volume nextcloud_aio_mastercontainer:/mnt/docker-aio-config \
 --volume /var/run/docker.sock:/var/run/docker.sock:ro \
 nextcloud/all-in-one:latest
+
+docker network create --attachable proxy-network
+
+docker network connect proxy-network nextcloud-aio-apache
