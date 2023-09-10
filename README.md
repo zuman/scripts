@@ -93,4 +93,6 @@ https://www.wireguard.com/install
 <br><br>
 
 ## 5. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
-Run the command: `./containers/nextcloud.sh`
+
+1. Setup  [Home directory customization](#1-home-directory-customization)
+2. Run the command: `./containers/nextcloud/nc-setup.sh`
