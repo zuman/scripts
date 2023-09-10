@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Define the container name
 container_name="nextcloud-aio-apache"
 
