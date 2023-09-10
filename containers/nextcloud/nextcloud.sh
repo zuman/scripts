@@ -20,9 +20,9 @@ docker network create --attachable proxy-network
 cp nextcloud-connect.sh $SCRIPT_PATH
 
 (
-    sudo crontab -l
-    echo "@reboot source $SCRIPT_PATH/log.sh; $SCRIPT_PATH/nextcloud-connect.sh | adddate "nextcloud-connect" >> $log"
-) | sudo crontab -
+    crontab -l
+    echo "@reboot /bin/bash -c 'source $SCRIPT_PATH/log.sh; $SCRIPT_PATH/nextcloud-connect.sh | adddate nextcloud-connect >> $log 2>&1'"
+) | crontab -
 
 echo "Script $SCRIPT_PATH/nextcloud-connect.sh added to cron for startup."
 
