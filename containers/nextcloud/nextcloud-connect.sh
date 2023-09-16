@@ -26,7 +26,7 @@ check_docker_and_wait() {
                 # Container is running
                 if docker network inspect "$network_name" | grep -q "$container_id"; then
                     # Container is already attached to the network
-                    echo "Container $container_name is already attached to $network_name."
+                    # echo "Container $container_name is already attached to $network_name."
                     return 0 # Success
                 else
                     # Container is not attached to the network, attach it
