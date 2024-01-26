@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice-documentserver
+    restart: always
+    ports:
+      - "11180:80"
+      - "11543:443"
+    volumes:
+      - /srv/onlyoffice/DocumentServer/logs:/var/log/onlyoffice
+      - /srv/onlyoffice/DocumentServer/data:/var/www/onlyoffice/Data
+      - /srv/onlyoffice/DocumentServer/lib:/var/lib/onlyoffice
+      - /srv/onlyoffice/DocumentServer/db:/var/lib/postgresql
+    env_file:
+      - /srv/onlyoffice/.env
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    external: true
