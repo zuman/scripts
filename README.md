@@ -9,16 +9,25 @@ If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 <br>
 
 ## Table of Contents
-- [1. Home directory customization](#1-home-directory-customization)
-- [2. zsync to sync files between local and server](#2-zsync-to-sync-files-between-local-and-server)
-- [3. VPN Initialization script](#3-vpn-initialization-script)
-- [4. Docker based Ubuntu VM](#4-docker-based-ubuntu-vm)
-- [5. Nextcloud initialization command with reverse-proxy](#5-nextcloud-initialization-command-with-reverse-proxy)
+- [1. Container Wrappers](#1-container-wrappers)
+- [2. Home directory customization](#2-home-directory-customization)
+- [3. zsync to sync files between local and server](#3-zsync-to-sync-files-between-local-and-server)
+- [4. VPN Initialization script](#4-vpn-initialization-script)
+- [5. Docker based Ubuntu VM](#5-docker-based-ubuntu-vm)
 
 
-<br><br>
+<br>
 
-## 1. Home directory customization
+## 1. Container Wrappers
+
+### 1.1. Nginx Proxy Manager
+
+### 1.2. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
+
+1. Setup  [Home directory customization](#1-home-directory-customization)
+2. Run the command: `./containers/nextcloud/nc-setup.sh`
+
+## 3. Home directory customization
 
 ### Commands to setup home directory.
 ```
@@ -26,9 +35,9 @@ If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 source ~/.profile
 ```
 
-<br><br>
+<br>
 
-## 2. zsync to sync files between local and server
+## 3. zsync to sync files between local and server
 
 ### Prerequisites:
     1. Complete section above : 1. Home directory customization
@@ -47,9 +56,9 @@ source ~/.profile
 zsync [pull|push] syncserver syncdir
 ```
 
-<br><br>
+<br>
 
-## 3. VPN Initialization script
+## 4. VPN Initialization script
 
 ### From home/packages.sh, copy and run the following sections:
 > Setup Docker
@@ -76,9 +85,9 @@ https://www.wireguard.com/install
 ### Show QR code for the VPN peer:
 >docker exec -it wireguard /app/show-peer 1
 
-<br><br>
+<br>
 
-## 4. Docker based Ubuntu VM
+## 5. Docker based Ubuntu VM
 
 1. Run the below commands. (make sure to replace your username and password accordingly)
 
@@ -90,9 +99,4 @@ https://www.wireguard.com/install
 2. Run the container with command
 >docker run -d -v .:/home --network host --name my-vm vm
 
-<br><br>
-
-## 5. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
-
-1. Setup  [Home directory customization](#1-home-directory-customization)
-2. Run the command: `./containers/nextcloud/nc-setup.sh`
+<br>
