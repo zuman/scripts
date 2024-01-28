@@ -2,14 +2,19 @@ version: '3.8'
 services:
   portainer:
     image: portainer/portainer-ce:latest
+    restart: always
     container_name: portainer
     ports:
-      - "82:8000"
-      - "9443:9443"
+      - "1000:8000"
+      - "1443:9443"
+    env_file:
+      - .env
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "portainer_data:/data"
-    restart: always
+      - "$DATA:/data"
+    networks:
+      - common-proxy_default
 
-volumes:
-  portainer_data:
+networks:
+  common-proxy_default:
+    external: true
