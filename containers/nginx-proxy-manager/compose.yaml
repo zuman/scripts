@@ -1,8 +1,9 @@
 version: '3.8'
 services:
-  app:
+  nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:2.11.1'
     restart: unless-stopped
+    container_name: nginx-proxy-manager
     ports:
       - '80:80'
       - '1081:81'
