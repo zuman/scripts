@@ -22,7 +22,9 @@ If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 
 ### 1.1. Nginx Proxy Manager
 
-### 1.2. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
+### 1.2. Portainer with [reverse-proxy](https://github.com/zuman/common-proxy)
+
+### 1.3. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
 
 1. Setup  [Home directory customization](#1-home-directory-customization)
 2. Run the command: `./containers/nextcloud/nc-setup.sh`
