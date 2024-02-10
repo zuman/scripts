@@ -15,15 +15,11 @@ SCRIPT_PATH="$HOME/scripts"
 
 source $SCRIPT_PATH/log.sh
 
-docker network create --attachable proxy-network
-
 cp nextcloud-connect.sh $SCRIPT_PATH
 
 (
     crontab -l
-    echo "0 * * * * /bin/bash -c 'source $SCRIPT_PATH/log.sh; $SCRIPT_PATH/nextcloud-connect.sh | adddate nextcloud-connect >> $log 2>&1'"
+    echo "*/5 * * * * /bin/bash -c 'source $SCRIPT_PATH/log.sh; $SCRIPT_PATH/nextcloud-connect.sh | adddate nextcloud-connect >> $log 2>&1'"
 ) | crontab -
 
 echo "Script $SCRIPT_PATH/nextcloud-connect.sh added to cron for startup."
-
-./nextcloud-connect.sh | adddate "nextcloud-startup" >>$log
