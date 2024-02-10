@@ -4,10 +4,10 @@
 container_name="nextcloud-aio-apache"
 
 # Define the network name
-network_name="proxy-network"
+network_name="common-proxy_default"
 
 # Define the maximum number of retries
-max_retries=120
+max_retries=20
 
 # Sleep time
 sleep_time=5
@@ -18,6 +18,8 @@ retries=0
 # Check if Docker is running and wait for the container with retries
 check_docker_and_wait() {
     while [ $retries -lt $max_retries ]; do
+        ((retries++))
+
         if docker info &>/dev/null; then
             # Docker is running
             container_id=$(docker ps -qf "name=$container_name")
@@ -26,27 +28,26 @@ check_docker_and_wait() {
                 # Container is running
                 if docker network inspect "$network_name" | grep -q "$container_id"; then
                     # Container is already attached to the network
-                    # echo "Container $container_name is already attached to $network_name."
+                    # echo "$retries. Container $container_name is already attached to $network_name."
                     return 0 # Success
                 else
                     # Container is not attached to the network, attach it
                     if docker network connect "$network_name" "$container_id" &>/dev/null; then
-                        echo "Container $container_name has been attached to $network_name."
+                        echo "$retries. Container $container_name has been attached to $network_name."
                         return 0 # Success
                     else
-                        echo "Failed to attach container $container_name to $network_name. Retrying..."
+                        echo "$retries. Failed to attach container $container_name to $network_name. Retrying..."
                     fi
                 fi
             else
-                echo "Container $container_name is not running. Waiting for it to start..."
+                echo "$retries. Container $container_name is not running. Waiting for it to start..."
             fi
         else
-            echo "Docker is not running. Waiting for Docker to start..."
+            echo "$retries. Docker is not running. Waiting for Docker to start..."
         fi
 
         # Sleep for a few seconds and increment the retry counter
         sleep $sleep_time
-        ((retries++))
     done
 
     echo "Docker or container did not start within the specified time."
