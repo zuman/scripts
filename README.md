@@ -50,9 +50,9 @@ PORT_22=...
 PORT_80=...
 PORT_443=...
 ```
-* Run `docker compose up` and stop after gitlab initialises successfully.
+* Run `docker compose up -d` and wait for it to set up.
 * Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory.
-* Run `docker compose up -d`
+* Reconfigure gitlab with command `docker exec -it gitlab gitlab-ctl reconfigure`
 
 ## 3. Home directory customization
 
