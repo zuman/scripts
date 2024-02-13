@@ -6,8 +6,6 @@ Tried and tested in Ubuntu & MacOS.
 
 If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 
-<br>
-
 ## Table of Contents
 - [1. Container Wrappers](#1-container-wrappers)
 - [2. Home directory customization](#2-home-directory-customization)
@@ -15,21 +13,48 @@ If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 - [4. VPN Initialization script](#4-vpn-initialization-script)
 - [5. Docker based Ubuntu VM](#5-docker-based-ubuntu-vm)
 
-
 <br>
 
 ## 1. Container Wrappers
 
 ### 1.1. Nginx Proxy Manager
+* Create a directory `nginx-proxy-manager` and copy compose.yaml to it.
+* Create a `.env` file as below and run `docker compose up -d`
+```
+DATA=nginx-proxy-manager/data
+LETSENCRYPT=nginx-proxy-manager/letsencrypt
+```
 
 ### 1.2. Portainer with [reverse-proxy](https://github.com/zuman/common-proxy)
+* Create a directory `portainer` and copy compose.yaml to it.
+* Create a `.env` file as below and run `docker compose up -d`
+```
+DATA=portainer/data
+PORT_443=...
+PORT_8000=...
+```
 
 ### 1.3. Nextcloud initialization command with [reverse-proxy](https://github.com/zuman/common-proxy)
 
-1. Setup  [Home directory customization](#1-home-directory-customization)
-2. Run the command: `./containers/nextcloud/nc-setup.sh`
+* Setup  [Home directory customization](#1-home-directory-customization)
+* Run the command: `./containers/nextcloud/nc-setup.sh`
 
-## 3. Home directory customization
+### 1.4. Gitlab with [reverse-proxy](https://github.com/zuman/common-proxy)
+
+* Create a directory `gitlab` and copy compose.yaml to it.
+* Create a `.env` file as below.
+```
+HOSTNAME=...
+GITLAB_HOME=...
+PORT_22=...
+PORT_80=...
+PORT_443=...
+```
+* Run `docker compose up -d` and wait for it to set up.
+* Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory.
+* Reconfigure gitlab with command `docker exec -it gitlab gitlab-ctl reconfigure`
+
+## 2. Home directory customization
 
 ### Commands to setup home directory.
 ```
