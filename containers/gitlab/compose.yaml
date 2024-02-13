@@ -12,9 +12,9 @@ services:
         # Add any other gitlab.rb configuration here, each on its own line
         external_url 'https://$HOSTNAME'
     ports:
-      - '3122:22'
-      - '3180:80'
-      - '3143:443'
+      - '$PORT_22:22'
+      - '$PORT_80:80'
+      - '$PORT_443:443'
     volumes:
       - '$GITLAB_HOME/data:/var/opt/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'

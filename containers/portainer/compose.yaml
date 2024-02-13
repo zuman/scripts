@@ -5,8 +5,8 @@ services:
     restart: always
     container_name: portainer
     ports:
-      - "1000:8000"
-      - "1443:9443"
+      - "$PORT_443:9443"
+      - "$PORT_8000:8000"
     env_file:
       - .env
     volumes:
