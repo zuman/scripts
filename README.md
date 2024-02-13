@@ -54,7 +54,7 @@ PORT_443=...
 * Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory.
 * Reconfigure gitlab with command `docker exec -it gitlab gitlab-ctl reconfigure`
 
-## 3. Home directory customization
+## 2. Home directory customization
 
 ### Commands to setup home directory.
 ```
