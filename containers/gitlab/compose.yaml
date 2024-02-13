@@ -19,3 +19,9 @@ services:
       - '$GITLAB_HOME/data:/var/opt/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'
       - '$GITLAB_HOME/config:/etc/gitlab'
+    networks:
+      - common-proxy_default
+
+networks:
+  common-proxy_default:
+    external: true

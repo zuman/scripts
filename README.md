@@ -29,6 +29,13 @@ If you are facing any problems, you can reach out to me on zuman.one@icloud.com
 1. Setup  [Home directory customization](#1-home-directory-customization)
 2. Run the command: `./containers/nextcloud/nc-setup.sh`
 
+### 1.4. Gitlab with [reverse-proxy](https://github.com/zuman/common-proxy)
+
+1. Copy file `containers/gitlab/compose.yaml` to `$GITLAB_HOME` directory set in `$GITLAB_HOME/.env`
+2. Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory set in `$GITLAB_HOME/.env`
+3. Update `gitlab.rb` as required
+4. Run `docker compose up -d`
+
 ## 3. Home directory customization
 
 ### Commands to setup home directory.
