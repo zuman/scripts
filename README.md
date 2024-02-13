@@ -42,7 +42,7 @@ PORT_8000=...
 ### 1.4. Gitlab with [reverse-proxy](https://github.com/zuman/common-proxy)
 
 * Create a directory `gitlab` and copy compose.yaml to it.
-* Create a `.env` file as below and run `docker compose up -d`
+* Create a `.env` file as below.
 ```
 HOSTNAME=...
 GITLAB_HOME=...
@@ -50,11 +50,9 @@ PORT_22=...
 PORT_80=...
 PORT_443=...
 ```
-
-1. Copy file `containers/gitlab/compose.yaml` to `$GITLAB_HOME` directory set in `$GITLAB_HOME/.env`
-2. Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory set in `$GITLAB_HOME/.env`
-3. Update `gitlab.rb` as required
-4. Run `docker compose up -d`
+* Run `docker compose up` and stop after gitlab initialises successfully.
+* Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory.
+* Run `docker compose up -d`
 
 ## 3. Home directory customization
 
