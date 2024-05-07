@@ -54,6 +54,21 @@ PORT_443=...
 * Copy file `containers/gitlab/gitlab.rb` to `$GITLAB_HOME/config/` directory.
 * Reconfigure gitlab with command `docker exec -it gitlab gitlab-ctl reconfigure`
 
+
+### 1.5. Transmission with [reverse-proxy](https://github.com/zuman/common-proxy)
+* Create a directory `transmission` and copy compose.yaml to it.
+* Create a `.env` file as below and run `docker compose up -d`
+```
+PUID=...
+PGID=...
+TZ=Asia/Kolkata # Your timezone
+USER=...
+PASS=...
+CONFIG=/path/to/transmission/config
+DOWNLOADS=/path/to/transmission/downloads
+WATCH=/path/to/transmission/watch
+```
+
 ## 2. Home directory customization
 
 ### Commands to setup home directory.

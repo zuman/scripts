@@ -1,0 +1,27 @@
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    env_file:
+      - .env
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - USER=$USER
+      - PASS=$PASS
+    volumes:
+      - $CONFIG:/config
+      - $DOWNLOADS:/downloads
+      - $WATCH:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+    networks:
+      - common-proxy_default
+
+networks:
+  common-proxy_default:
+    external: true
