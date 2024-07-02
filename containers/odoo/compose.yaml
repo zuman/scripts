@@ -1,11 +1,11 @@
 services:
-  odoo-web:
+  web:
     image: odoo:17.0
     restart: unless-stopped
     env_file:
       - .env
     depends_on:
-      - odoo-db
+      - db
     ports:
       - "$PORT_443:8069"
     volumes:
@@ -13,13 +13,13 @@ services:
       - $CONFIG:/etc/odoo
       - $ADDONS:/mnt/extra-addons
     environment:
-      - HOST=odoo-db
+      - HOST=db
       - USER=$POSTGRES_USER
       - PASSWORD=$POSTGRES_PASSWORD
     networks:
       - common-proxy_default
       - odoo-network
-  odoo-db:
+  db:
     image: postgres:15
     restart: unless-stopped
     env_file:
