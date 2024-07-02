@@ -77,7 +77,6 @@ WATCH=/path/to/transmission/watch
 PORT_443=443
 
 # Odoo configuration
-WEB_DATA=/path/to/web/data
 CONFIG=/path/to/config
 ADDONS=/path/to/addons
 
