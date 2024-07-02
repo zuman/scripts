@@ -9,7 +9,7 @@ services:
     ports:
       - "$PORT_443:8069"
     volumes:
-      - $WEB_DATA:/var/lib/odoo
+      - odoo-web-data:/var/lib/odoo
       - $CONFIG:/etc/odoo
       - $ADDONS:/mnt/extra-addons
     environment:
@@ -33,6 +33,9 @@ services:
       - $DATA:/var/lib/postgresql/data/pgdata
     networks:
       - odoo-network
+
+volumes:
+  odoo-web-data:
 
 networks:
   common-proxy_default:
