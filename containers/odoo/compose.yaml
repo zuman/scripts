@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+  odoo-web:
+    image: odoo:17.0
+    env_file:
+      - .env
+    depends_on:
+      - odoo-db
+    ports:
+      - "$PORT_443:8069"
+    volumes:
+      - $WEB_DATA:/var/lib/odoo
+      - $CONFIG:/etc/odoo
+      - $ADDONS:/mnt/extra-addons
+    environment:
+      - HOST=odoo-db
+      - USER=$POSTGRES_USER
+      - PASSWORD=$POSTGRES_PASSWORD
+    networks:
+      - common-proxy_default
+      - odoo-network
+  odoo-db:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - $DATA:/var/lib/postgresql/data/pgdata
+    networks:
+      - odoo-network
+
+networks:
+  common-proxy_default:
+    external: true
+  odoo-network:
+    external: false
