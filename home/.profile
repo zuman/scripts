@@ -32,6 +32,7 @@ source log.sh
 
 #Add aliases here
 alias dcls='docker container ls'
+alias dcr='docker container restart'
 alias df5='echo "y" | docker image prune; echo "y" | docker volume prune; echo "y" | docker network prune;'
 alias dr-reset='docker compose down; docker compose build; docker compose up -d'
 alias enva='source venv/bin/activate'

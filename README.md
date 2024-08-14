@@ -69,6 +69,26 @@ DOWNLOADS=/path/to/transmission/downloads
 WATCH=/path/to/transmission/watch
 ```
 
+### 1.6. Odoo with [reverse-proxy](https://github.com/zuman/common-proxy)
+* Use `nginx.conf` file for nginx reverse proxy settings. Replace `odoo.example.com` with your domain name.
+* Create a directory `odoo` and copy compose.yaml to it.
+* Create a directory for config inside odoo and copy `odoo.conf` to it.
+* Create a `.env` file as below and run `docker compose up -d`
+```
+# Port configuration
+PORT_443=443
+
+# Odoo configuration
+CONFIG=/path/to/config
+ADDONS=/path/to/addons
+
+# Postgres configuration
+POSTGRES_USER=your_postgres_user
+POSTGRES_PASSWORD=your_postgres_password
+DATA=/path/to/postgres/data
+
+```
+
 ## 2. Home directory customization
 
 ### Commands to setup home directory.
