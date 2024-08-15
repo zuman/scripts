@@ -73,7 +73,6 @@ WATCH=/path/to/transmission/watch
 * Use `nginx.conf` file for nginx reverse proxy settings. Replace `odoo.example.com` with your domain name.
 * Also update docker container name.
 * Create a directory `odoo` and copy `compose.yaml` to it.
-* In `compose.yaml`, replace `odoo-webdata` with custom webdata name.
 * Create a directory `config` inside `odoo` and copy `odoo.conf` to it.
 * in `odoo.conf`, uncomment `admin_passwd` and set a password.
 * Create a `.env` file as below and run `docker compose up -d`
