@@ -71,15 +71,17 @@ WATCH=/path/to/transmission/watch
 
 ### 1.6. Odoo with [reverse-proxy](https://github.com/zuman/common-proxy)
 * Use `nginx.conf` file for nginx reverse proxy settings. Replace `odoo.example.com` with your domain name.
-* Create a directory `odoo` and copy compose.yaml to it.
+* Create a directory `odoo` and copy `compose.yaml` to it.
+* In `compose.yaml`, replace `odoo-webdata` with custom webdata name.
 * Create a directory for config inside odoo and copy `odoo.conf` to it.
 * Create a `.env` file as below and run `docker compose up -d`
 ```
+COMPOSE_PROJECT_NAME=your_project_name
+
 # Port configuration
 PORT_443=443
 
 # Odoo configuration
-WEBDATA=docker_volume_name
 CONFIG=/path/to/config
 ADDONS=/path/to/addons
 
