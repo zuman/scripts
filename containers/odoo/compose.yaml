@@ -9,7 +9,7 @@ services:
     ports:
       - "$PORT_443:8069"
     volumes:
-      - odoo-web-data:/var/lib/odoo
+      - $WEBDATA:/var/lib/odoo
       - $CONFIG:/etc/odoo
       - $ADDONS:/mnt/extra-addons
     environment:
