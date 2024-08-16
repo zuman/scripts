@@ -89,7 +89,6 @@ ADDONS=/path/to/addons
 # Postgres configuration
 POSTGRES_USER=your_postgres_user
 POSTGRES_PASSWORD=your_postgres_password
-DATA=/path/to/postgres/data
 
 ```
 

@@ -18,7 +18,7 @@ services:
       - PASSWORD=$POSTGRES_PASSWORD
     networks:
       - common-proxy_default
-      - odoo-network
+      - network
   db:
     image: postgres:15
     restart: unless-stopped
@@ -30,15 +30,16 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - $DATA:/var/lib/postgresql/data/pgdata
+      - data:/var/lib/postgresql/data/pgdata
     networks:
-      - odoo-network
+      - network
 
 volumes:
   webdata:
+  data:
 
 networks:
   common-proxy_default:
     external: true
-  odoo-network:
+  network:
     external: false
