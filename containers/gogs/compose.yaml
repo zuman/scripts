@@ -1,0 +1,18 @@
+services:
+  gogs:
+    image: gogs/gogs
+    restart: always
+    container_name: gogs
+    ports:
+      - "$PORT_22:22"
+      - "$PORT_3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - "$DATA:/data"
+    networks:
+      - common-proxy_default
+
+networks:
+  common-proxy_default:
+    external: true
