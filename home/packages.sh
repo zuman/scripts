@@ -8,8 +8,8 @@ sudo sh ./get-docker.sh
 echo "Setup Docker Complete"
 
 echo "Enable Universal Firewall"
-sed -i 's/^\[Unit\]/\[Unit\]\nAfter=netfilter-persistent.service/' /lib/systemd/system/ufw.service
+sudo sed -i 's/^\[Unit\]/\[Unit\]\nAfter=netfilter-persistent.service/' /lib/systemd/system/ufw.service
 echo "y" | sudo ufw enable
-ufw allow ssh
-systemctl restart ufw
+sudo ufw allow ssh
+sudo systemctl restart ufw
 echo "Enable Universal Firewall complete"
