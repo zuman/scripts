@@ -1,5 +1,5 @@
 echo "Tools"
-sudo apt install software-properties-common net-tools openresolv ssh vim nano sudo git curl wget nmap -y
+sudo apt install software-properties-common net-tools apt-utils ufw ssh vim nano sudo git curl wget nmap -y
 echo "Tools complete"
 
 echo "Setup Docker"
