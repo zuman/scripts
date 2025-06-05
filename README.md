@@ -29,7 +29,7 @@ LETSENCRYPT=nginx-proxy-manager/letsencrypt
 * Create a directory `portainer` and copy compose.yaml to it.
 * Create a `.env` file as below and run `docker compose up -d`
 ```
-DATA=portainer/data
+DATA=/path/to/portainer/data
 PORT_443=...
 PORT_8000=...
 ```
