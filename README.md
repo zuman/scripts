@@ -92,6 +92,23 @@ POSTGRES_PASSWORD=your_postgres_password
 
 ```
 
+### 1.7. CouchDB with [reverse-proxy](https://github.com/zuman/common-proxy)
+* Create a directory `couchdb` and copy `compose.yaml` to it.
+* Create a `.env` file as below and run `docker compose up -d`
+```
+USER=...
+PASSWORD=...
+PORT=...
+DATA=...
+```
+* Create the database
+```
+# Use the password/port from your .env file
+curl -X PUT http://admin:your-secure-password@localhost:5984/_users
+curl -X PUT http://admin:your-secure-password@localhost:5984/_replicator
+curl -X PUT http://admin:your-secure-password@localhost:5984/_global_changes
+```
+
 ## 2. Home directory customization
 
 ### Commands to setup home directory.
