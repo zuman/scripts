@@ -1,51 +1,51 @@
-# Odoo 17 → 18 Community Edition Migration Guide (Docker)
+# Docker-Based Migration Guide for Odoo CE (Incremental Versions)
 
-This document outlines a **reliable, repeatable** procedure to migrate an Odoo CE instance from version 17 to 18 using Docker. It captures the **working strategy** refined through hands-on troubleshooting and is intended for future migrations.
+This guide provides a **repeatable strategy** to migrate an Odoo Community Edition instance from version **N** to **N+1** (e.g., 17→18, 18→19) in a Docker environment. It captures the working approach refined through hands-on experience and is suitable for future upgrades.
 
 ***
 
 ## 1. Prerequisites
 
--  Docker Engine & Docker Compose installed  
--  Existing Odoo 17 instance running via Docker Compose  
--  Database backup and volume snapshot process in place  
--  Shell access to your Docker host  
+- Docker Engine & Docker Compose  
+- Existing Odoo N instance running via Docker Compose  
+- Database and volume backup procedures  
+- Shell access to Docker host  
 
 ***
 
-## 2. Directory Layout
+## 2. Project Layout
 
 ```
 /your-project/
 │
 ├── compose.yaml           # Docker Compose for web, db, upgrade
-├── .env                   # Environment variables (POSTGRES_USER, POSTGRES_PASSWORD, PORT_443, CONFIG, ADDONS)
+├── .env                   # Environment variables (POSTGRES_USER, POSTGRES_PASSWORD, PORT, CONFIG, ADDONS)
 ├── config/                # Odoo configuration files
 ├── addons/                # Custom addons directory
-├── odoo-18-src/           # Cloned Odoo 18 source code
-└── OpenUpgrade/           # Cloned OCA/OpenUpgrade scripts
+├── odoo-src/              # Cloned Odoo source code for version N+1
+└── OpenUpgrade/           # Cloned OCA/OpenUpgrade scripts for version N→N+1
 ```
 
 ***
 
 ## 3. Backup Existing Data
 
-1. Stop services:  
+1. **Stop services**  
    `docker compose down`  
-2. Backup database volume:  
-   `docker run --rm --volumes-from <project>_db_1 -v $(pwd):/backup ubuntu tar czf /backup/data_backup.tar.gz -C /var/lib/postgresql/data/pgdata .`  
-3. Backup Odoo filestore volume:  
+2. **Backup database volume**  
+   `docker run --rm --volumes-from <project>_db_1 -v $(pwd):/backup ubuntu tar czf /backup/db_backup.tar.gz -C /var/lib/postgresql/data .`  
+3. **Backup filestore volume**  
    `docker run --rm -v <project>_web/data -v $(pwd):/backup ubuntu tar czf /backup/web_backup.tar.gz -C /data .`  
-4. Save Compose & env:  
-   `cp compose.yaml .env backup/`
+4. **Save Compose & env**  
+   `cp compose.yaml .env backup/`  
 
 ***
 
-## 4. Clone Required Repositories
+## 4. Clone Repositories
 
 ```bash
-git clone --depth 1 --branch 18.0 https://github.com/odoo/odoo.git odoo-18-src
-git clone --depth 1 --branch 18.0 https://github.com/OCA/OpenUpgrade.git OpenUpgrade
+git clone --depth 1 --branch N+1.0 https://github.com/odoo/odoo.git odoo-src
+git clone --depth 1 --branch N+1.0 https://github.com/OCA/OpenUpgrade.git OpenUpgrade
 ```
 
 ***
@@ -54,11 +54,10 @@ git clone --depth 1 --branch 18.0 https://github.com/OCA/OpenUpgrade.git OpenUpg
 
 ```dockerfile
 # Dockerfile.upgrade
-FROM odoo:18.0
+FROM odoo:N+1.0
 
 USER root
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-venv \
     build-essential \
     python3-dev \
@@ -70,7 +69,7 @@ RUN apt-get update \
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY ./odoo-18-src/requirements.txt /tmp/requirements.txt
+COPY ./odoo-src/requirements.txt /tmp/requirements.txt
 RUN sed -i 's/psycopg2==/psycopg2-binary==/g' /tmp/requirements.txt
 RUN /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt
 RUN /opt/venv/bin/pip install --no-cache-dir openupgradelib
@@ -82,16 +81,18 @@ USER odoo
 
 ## 6. Update `compose.yaml`
 
-Add a temporary **upgrade** service; remove after migration.
+Add a temporary **upgrade** service; remove after migration:
 
 ```yaml
 services:
   web:
-    image: odoo:17.0
+    image: odoo:N.0
     # unchanged
+
   db:
     image: postgres:15
     # unchanged
+
   upgrade:
     build:
       context: .
@@ -99,7 +100,7 @@ services:
     env_file: [.env]
     depends_on: [db]
     volumes:
-      - ./odoo-18-src:/mnt/odoo-src
+      - ./odoo-src:/mnt/odoo-src
       - ./OpenUpgrade:/mnt/openupgrade
       - ${ADDONS}:/mnt/extra-addons
       - ./migrate.conf:/etc/odoo/migrate.conf
@@ -112,20 +113,10 @@ services:
     command: >
       /mnt/odoo-src/odoo-bin
       -c /etc/odoo/migrate.conf
-      -d postgres
+      -d ${POSTGRES_DB}
       --update=all
       --stop-after-init
       --load=base,web,openupgrade_framework
-
-volumes:
-  web
-  
-
-networks:
-  common-proxy_default:
-    external: true
-  network:
-    external: false
 ```
 
 ***
@@ -149,34 +140,33 @@ limit_memory_soft = 0
 
 ***
 
-## 8. Run Migration
+## 8. Execute Migration
 
-1. Ensure database is fresh Odoo 17 state (restore if needed).
-2. Start only the DB:  
+1. **Restore** your Odoo N database if needed.  
+2. **Start** database service:  
    `docker compose up -d db`  
-3. Execute upgrade container:  
+3. **Run** upgrade service:  
    `docker compose run --build --rm upgrade`  
 
-The logs should show **loading of multiple modules** without errors, then a clean shutdown.
+Successful migration logs will show **multiple modules** loading and a clean shutdown.
 
 ***
 
-## 9. Post-Migration Cleanup
+## 9. Cleanup & Launch
 
-1. Stop containers:  
-   `docker compose down`  
-2. Remove—or comment out—the **upgrade** service and its Dockerfile.
-3. Update `web` service to `image: odoo:18.0`.
-4. Start Odoo 18:  
+1. `docker compose down`  
+2. **Remove** or comment out the `upgrade` service and `Dockerfile.upgrade`.  
+3. Update `web` service to `image: odoo:N+1.0`.  
+4. **Start** your upgraded instance:  
    `docker compose up -d`  
 
 ***
 
-## 10. Verification
+## 10. Verify
 
--  Log into Odoo 18 at `https://<your-host>:${PORT_443}`  
--  Confirm data, custom modules, and workflows function as expected.  
+-  Access Odoo N+1 at `https://<host>:${PORT}`  
+-  Confirm data integrity, custom modules, and workflows.
 
 ***
 
-**This procedure captures the exact working strategy**—including virtualenv setup, dependency fixes, and OpenUpgrade execution—for reliable future migrations of Odoo CE from 17 to 18 in Docker environments.
+**This template** supports any incremental Odoo CE migration (N→N+1) using Docker and OpenUpgrade, ensuring a consistent process for future upgrades.
