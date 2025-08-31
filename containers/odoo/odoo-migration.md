@@ -125,7 +125,7 @@ services:
     command: >
       /mnt/odoo-src/odoo-bin
       -c /etc/odoo/migrate.conf
-      -d postgres
+      -d $POSTGRES_DB
       --update=all
       --stop-after-init
       --load=base,web,openupgrade_framework
@@ -163,6 +163,8 @@ limit_memory_soft = 0
 1. **Restore** your Odoo N database if needed.  
 2. **Start** database service:  
    `docker compose up -d db`  
+3. **Export** db name:  
+   `export POSTGRES_DB=<your_db_name>`
 3. **Run** upgrade service:  
    `docker compose run --build --rm upgrade`  
 
