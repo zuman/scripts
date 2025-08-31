@@ -15,29 +15,39 @@ This guide provides a **repeatable strategy** to migrate an Odoo Community Editi
 
 ## 2. Project Layout
 
+Create a project directory for the migration.
 ```
-/your-project/
+/backup-project/
 │
 ├── compose.yaml           # Docker Compose for web, db, upgrade
 ├── .env                   # Environment variables (POSTGRES_USER, POSTGRES_PASSWORD, PORT, CONFIG, ADDONS)
-├── config/                # Odoo configuration files
-├── addons/                # Custom addons directory
+├── Dockerfile.upgrade     # Custom Dockerfile for migration
+├── migrate.conf           # Odoo configuration for migration
 ├── odoo-src/              # Cloned Odoo source code for version N+1
 └── OpenUpgrade/           # Cloned OCA/OpenUpgrade scripts for version N→N+1
 ```
 
 ***
 
-## 3. Backup Existing Data
+## 3. Backup Existing Volumes
 
 1. **Stop services**  
    `docker compose down`  
-2. **Backup database volume**  
-   `docker run --rm --volumes-from <project>_db_1 -v $(pwd):/backup ubuntu tar czf /backup/db_backup.tar.gz -C /var/lib/postgresql/data .`  
-3. **Backup filestore volume**  
-   `docker run --rm -v <project>_web/data -v $(pwd):/backup ubuntu tar czf /backup/web_backup.tar.gz -C /data .`  
-4. **Save Compose & env**  
-   `cp compose.yaml .env backup/`  
+2. **Backup database volume**
+
+    Repeat for data and webdata volumes:
+    ```
+    docker run --rm -it \
+    -v <project>_[web]data:/source \
+    -v odoo-backup_[web]data:/destination \
+    alpine ash -c "cd /source && cp -av . /destination"
+    ``` 
+3. **Backup verification**  
+   ```
+    docker run --rm -it \
+    -v odoo-backup_[web]data:/data \
+    alpine ls -la /data
+   ```
 
 ***
 
@@ -79,7 +89,7 @@ USER odoo
 
 ***
 
-## 6. Update `compose.yaml`
+## 6. Copy `compose.yaml` and `.env`. Update `compose.yaml` as follows:
 
 Add a temporary **upgrade** service; remove after migration:
 
@@ -97,26 +107,34 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.upgrade
-    env_file: [.env]
-    depends_on: [db]
+    env_file:
+      - .env
+    depends_on:
+      - db
     volumes:
       - ./odoo-src:/mnt/odoo-src
       - ./OpenUpgrade:/mnt/openupgrade
       - ${ADDONS}:/mnt/extra-addons
       - ./migrate.conf:/etc/odoo/migrate.conf
     environment:
-      HOST: db
-      USER: ${POSTGRES_USER}
-      PASSWORD: ${POSTGRES_PASSWORD}
+      - HOST=db
+      - USER=$POSTGRES_USER
+      - PASSWORD=$POSTGRES_PASSWORD
     networks:
       - network
     command: >
       /mnt/odoo-src/odoo-bin
       -c /etc/odoo/migrate.conf
-      -d ${POSTGRES_DB}
+      -d postgres
       --update=all
       --stop-after-init
       --load=base,web,openupgrade_framework
+
+volumes:
+  # unchanged
+
+networks:
+  # unchanged
 ```
 
 ***
@@ -128,8 +146,8 @@ services:
 admin_passwd = admin
 db_host = db
 db_port = 5432
-db_user = ${POSTGRES_USER}
-db_password = ${POSTGRES_PASSWORD}
+db_user = <Replace with POSTGRES_USER>
+db_password = <Replace with POSTGRES_PASSWORD>
 
 addons_path = /mnt/odoo-src/addons,/mnt/extra-addons,/mnt/openupgrade
 upgrade_path = /mnt/openupgrade/openupgrade_scripts/scripts
@@ -155,10 +173,9 @@ Successful migration logs will show **multiple modules** loading and a clean shu
 ## 9. Cleanup & Launch
 
 1. `docker compose down`  
-2. **Remove** or comment out the `upgrade` service and `Dockerfile.upgrade`.  
-3. Update `web` service to `image: odoo:N+1.0`.  
+3. Update `web` service of original project compose file to `image: odoo:N+1.0`
 4. **Start** your upgraded instance:  
-   `docker compose up -d`  
+   `docker compose up -d`
 
 ***
 
