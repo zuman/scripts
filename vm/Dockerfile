@@ -1,5 +1,5 @@
 # Use the base image of Ubuntu 22.04
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Update and upgrade the image
 RUN apt update && apt upgrade -y
